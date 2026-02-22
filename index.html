@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>HANNY</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: #000;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* LOADING 表示 */
+  #loading {
+    font-size: 50px;
+    color: #ff69b4;
+    text-align: center;
+  }
+
+  #hearts {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  #hearts span {
+    font-size: 24px;
+    opacity: 0;
+    margin: 5px;
+  }
+
+  @keyframes heartFade {
+    0% { opacity: 0; transform: scale(0.5);}
+    50% { opacity: 1; transform: scale(1.2);}
+    100% { opacity: 0; transform: scale(1);}
+  }
+
+  /* メイン表示 */
+  #mainContent {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .letters {
+    font-size: 120px;
+    font-weight: bold;
+    letter-spacing: 20px;
+    color: white;
+    -webkit-text-stroke: 2px #ff69b4;
+    text-shadow: 0 0 10px #ff69b4;
+    margin-bottom: 40px;
+  }
+
+  /* CONTACT ME ボタン（ネオン横揺れ） */
+  .contact-button {
+    display: inline-block;
+    padding: 20px 50px;
+    color: white;
+    border: 3px solid #ff69b4;
+    border-radius: 40px;
+    text-decoration: none;
+    font-size: 28px;
+    font-weight: bold;
+    text-shadow: 0 0 5px #ff69b4, 0 0 10px #ff1493, 0 0 20px #ff1493;
+    box-shadow: 0 0 15px #ff69b4, 0 0 30px #ff1493;
+    animation: neonPulse 1.5s infinite alternate, shakeX 1s infinite alternate;
+  }
+
+  @keyframes neonPulse {
+    0% { text-shadow: 0 0 5px #ff69b4, 0 0 10px #ff1493, 0 0 20px #ff1493; box-shadow: 0 0 15px #ff69b4, 0 0 30px #ff1493;}
+    100% { text-shadow: 0 0 15px #ff69b4, 0 0 30px #ff1493, 0 0 40px #ff1493; box-shadow: 0 0 25px #ff69b4, 0 0 50px #ff1493;}
+  }
+
+  @keyframes shakeX {
+    0% { transform: translateX(0);}
+    25% { transform: translateX(-5px);}
+    50% { transform: translateX(5px);}
+    75% { transform: translateX(-3px);}
+    100% { transform: translateX(3px);}
+  }
+
+</style>
+</head>
+<body>
+
+<div id="loading">
+  LOADING
+  <div id="hearts">
+    <span>🤍</span>
+    <span>🤍</span>
+    <span>🤍</span>
+  </div>
+</div>
+
+<div id="mainContent">
+  <div class="letters">H A N N Y</div>
+  <!-- Gmailリンクを hana02916@gmail.com に設定 -->
+  <a href="mailto:hana02916@gmail.com" class="contact-button">CONTACT ME</a>
+</div>
+
+<script>
+const hearts = document.querySelectorAll('#hearts span');
+const loading = document.getElementById('loading');
+const mainContent = document.getElementById('mainContent');
+
+// ハートを順番にアニメーション
+hearts.forEach((heart, i) => {
+  setTimeout(() => {
+    heart.style.animation = 'heartFade 0.6s forwards';
+  }, i * 600);
+});
+
+// LOADING をフェードアウトして HANNY 表示
+setTimeout(() => {
+  loading.style.transition = 'opacity 1s ease';
+  loading.style.opacity = 0;
+  loading.addEventListener('transitionend', () => {
+    loading.style.display = 'none';
+    mainContent.style.display = 'flex';
+  });
+}, hearts.length * 600 + 600);
+</script>
+
+</body>
+</html>
